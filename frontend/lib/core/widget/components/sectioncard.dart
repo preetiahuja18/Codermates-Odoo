@@ -8,7 +8,7 @@ Widget sectionTitle(BuildContext context, String title, IconData icon) {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: AxStyle.primaryBgColor.withOpacity(0.1),
+            backgroundColor: AxStyle.primaryBgColor.withValues(alpha: 0.1),
             radius: 16,
             child: Icon(icon, size: 18, color: AxStyle.primaryBgColor),
           ),

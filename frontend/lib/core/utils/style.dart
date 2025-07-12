@@ -30,7 +30,7 @@ abstract class AxStyle {
       BoxShadow(
         color: Colors.black12,
         blurRadius: 30,
-        offset: const Offset(0, 6),
+        offset: Offset(0, 6),
       ),
     ],
   );

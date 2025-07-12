@@ -5,7 +5,6 @@ import 'package:skill_swap/core/utils/extentions.dart';
 import 'package:skill_swap/core/utils/style.dart';
 import 'package:skill_swap/core/widget/button/filled.widget.dart';
 import 'package:skill_swap/core/widget/components/input.dart';
-import 'package:skill_swap/modules/home/view.dart';
 import 'package:skill_swap/screens/register.dart';
 import 'package:skill_swap/screens/user_profile.dart';
 
@@ -31,11 +30,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final email = emailCtrl.text.trim();
   final password = passwordCtrl.text.trim();
-  print("Submit:$email & Password : $password");
 
   final auth = Provider.of<AuthProvider>(context, listen: false);
   final success = await auth.login(email, password);
-  print("Login success: $success");
 
   if (success) {
     Navigator.pushReplacement(

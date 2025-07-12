@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:skill_swap/core/model/user.model.dart';
-import 'package:skill_swap/core/utils/style.dart';
 import 'package:skill_swap/core/widget/button/filled.widget.dart';
 import 'package:skill_swap/core/widget/components/input.dart';
 import 'package:skill_swap/core/widget/components/sectioncard.dart';
 import 'package:skill_swap/core/widget/components/skills_section.dart';
 import 'package:skill_swap/core/widget/layout/body.layout.dart';
-import 'package:skill_swap/modules/home/view.dart';
 
 class RequestSwap extends StatefulWidget {
   final AxUserModel userModel;

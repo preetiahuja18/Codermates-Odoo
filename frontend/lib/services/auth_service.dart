@@ -8,9 +8,6 @@ class AuthService {
  Future<AxUserLoginModel?> login(String email, String password) async {
   final url = Uri.parse(baseUrl);
 
-  print(" Sending POST to $url");
-  print(" Body: { email: $email, password: $password }");
-
   final response = await http.post(
     url,
     headers: {"Content-Type": "application/json"},
@@ -20,20 +17,15 @@ class AuthService {
     }),
   );
 
-  print(" Status: ${response.statusCode}");
-  print(" Body: ${response.body}");
-
   if (response.statusCode == 200) {
     final json = jsonDecode(response.body);
 
     if (json.containsKey("accessToken")) {
       return AxUserLoginModel.fromJson(json);
     } else {
-      print("Response is missing required fields.");
       return null;
     }
   } else {
-    print("Login failed with status ${response.statusCode}");
     return null;
   }
 }
