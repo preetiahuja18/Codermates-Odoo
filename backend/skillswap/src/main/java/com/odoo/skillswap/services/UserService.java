@@ -6,6 +6,7 @@ import com.odoo.skillswap.entities.SkillsTbl;
 import com.odoo.skillswap.entities.UserDetailsTbl;
 import com.odoo.skillswap.repos.UserDetailsRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.http.HttpRequest;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -86,5 +88,20 @@ public class UserService {
                 )
                 .build();
     }
+    @Transactional
+    public List<UserDetailsDTO> getAllPublicUsers(String skillName) {
+        List<UserDetailsTbl> publicUsers;
 
+        if (skillName == null || skillName.trim().isEmpty()) {
+            // Fetch all public users
+            publicUsers = userDetailsRepository.findByAccountType(UserDetailsTbl.AccountType.PUBLIC);
+        } else {
+            // Fetch public users offering or wanting a skill
+            publicUsers = userDetailsRepository.searchUsersBySkillName(skillName.trim());
+        }
+
+        return publicUsers.stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
 }

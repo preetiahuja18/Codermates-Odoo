@@ -22,4 +22,8 @@ public interface UserDetailsRepository extends JpaRepository<UserDetailsTbl, Lon
     //  Fetch users by partial skill name (e.g., "Photo" matches "Photoshop")
     @Query("SELECT u FROM UserDetailsTbl u JOIN u.skillsOffered s WHERE LOWER(s.name) LIKE LOWER(CONCAT('%', :skillName, '%'))")
     List<UserDetailsTbl> searchUsersBySkillName(String skillName);
+    // Fetch all users with PUBLIC account
+    List<UserDetailsTbl> findByAccountType(UserDetailsTbl.AccountType accountType);
+
+
 }
