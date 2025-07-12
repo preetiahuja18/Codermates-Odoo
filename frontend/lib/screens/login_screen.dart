@@ -6,9 +6,9 @@ import 'package:skill_swap/core/utils/style.dart';
 import 'package:skill_swap/core/widget/button/filled.widget.dart';
 import 'package:skill_swap/core/widget/components/input.dart';
 import 'package:skill_swap/core/widget/layout/body.layout.dart';
+import 'package:skill_swap/modules/home/view.dart';
 
 import '../providers/auth_provider.dart';
-import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (success) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => const HomeScreen()),
+          MaterialPageRoute(builder: (_) => const Home()),
         );
       } else {
         setState(() => isRegisterMode = true); // fallback to registrationz
@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (registered) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => const HomeScreen()),
+          MaterialPageRoute(builder: (_) => const Home()),
         );
       } else {
         ScaffoldMessenger.of(
