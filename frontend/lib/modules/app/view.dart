@@ -17,7 +17,7 @@ class SkilSwapApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
         ),
-        home: const Home(),
+        home: const LoginScreen(),
       ),
     );
   }

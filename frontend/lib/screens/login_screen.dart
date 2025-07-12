@@ -102,20 +102,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Container(
                       padding: const EdgeInsets.all(24),
                       width: context.isDeskTop ? 500 : double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: Colors.white.withOpacity(0.3),
-                        ),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 30,
-                            offset: const Offset(0, 6),
-                          ),
-                        ],
-                      ),
+                      decoration: AxStyle.cardDecoration,
+    
                       child: Column(
                         children: [
                           if (isRegisterMode)
@@ -151,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             onPressed: () {},
                             child: const Text(
                               "Forgot your password?",
-                              style: TextStyle(color: Colors.white),
+                              style: AxStyle.secondaryTextStyle,
                             ),
                           ),
                           TextButton(
@@ -164,8 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               isRegisterMode
                                   ? "Back to Login"
                                   : "Don’t have an account? Register",
-                              style: const TextStyle(
-                                color: Colors.white,
+                              style:AxStyle.secondaryTextStyle.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

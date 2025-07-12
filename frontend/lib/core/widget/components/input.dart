@@ -20,28 +20,21 @@ class InputField extends StatelessWidget {
     return TextField(
       controller: controller,
       obscureText: obscureText,
-    
-      style: const TextStyle(color: Colors.white),
+      style: AxStyle.secondaryTextStyle,
       cursorColor: Colors.white,
       decoration: InputDecoration(
         prefixIcon: icon != null
-            ? Icon(icon, color: AxStyle.white.withValues(alpha: 0.7))
+            ? Icon(icon, color: AxStyle.secondaryTextColor.withValues(alpha: 0.7))
             : null,
         hintText: hintText,
-        hintStyle: AxStyle.primaryTextStyle.copyWith(
-          color: AxStyle.white.withValues(alpha: 0.7),
-        ),
+        hintStyle: AxStyle.secondaryTextStyle,
         filled: true,
-        fillColor: AxStyle.white.withValues(alpha: 0.12),
+        fillColor: AxStyle.secondaryBgColor.withValues(alpha: 0.12),
         contentPadding: AxButtonStyle.innerPadding,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: AxButtonStyle.borderRadius,
-          borderSide: BorderSide(color: AxStyle.white.withValues(alpha: 0.3)),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: AxButtonStyle.borderRadius,
-          borderSide: BorderSide(color: AxStyle.white, width: 1.5),
-        ),
+        enabledBorder: AxButtonStyle.enableInputBorder,
+        focusedBorder: AxButtonStyle.focusedInputBorder,
+      
+    
       ),
     );
   }
