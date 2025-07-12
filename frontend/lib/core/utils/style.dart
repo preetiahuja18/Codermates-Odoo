@@ -6,8 +6,8 @@ abstract class AxStyle {
   static const Color white = Color(0xffffffff);
 
   
-  static const Color primaryBgColor = AxStyle.black;
-  static const Color primaryTextColor = AxStyle.white;
+  static const Color primaryBgColor = AxStyle.white;
+  static const Color primaryTextColor = AxStyle.black;
 
   static const TextStyle primaryTextStyle = TextStyle(
     color: primaryTextColor

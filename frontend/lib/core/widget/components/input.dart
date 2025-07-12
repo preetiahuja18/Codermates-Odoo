@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skill_swap/core/utils/style.dart';
 
 class InputField extends StatelessWidget {
   final TextEditingController controller;
@@ -19,23 +20,26 @@ class InputField extends StatelessWidget {
     return TextField(
       controller: controller,
       obscureText: obscureText,
-      style: const TextStyle(color: Colors.white),
-      cursorColor: Colors.white,
+      style: AxStyle.primaryTextStyle.copyWith(color: AxStyle.white),
+      cursorColor: AxStyle.white,
       decoration: InputDecoration(
         prefixIcon: icon != null
-            ? Icon(icon, color: Colors.white70)
+            ? Icon(icon, color: AxStyle.white.withValues(alpha: 0.7))
             : null,
         hintText: hintText,
-        hintStyle: TextStyle(color: Colors.white.withOpacity(0.7)),
+        hintStyle: AxStyle.primaryTextStyle.copyWith(
+          color: AxStyle.white.withValues(alpha: 0.7),
+        ),
         filled: true,
-        fillColor: Colors.white.withOpacity(0.15),
+        fillColor: AxStyle.white.withValues(alpha: 0.12),
+        contentPadding: AxButtonStyle.innerPadding,
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: Colors.white.withOpacity(0.3)),
+          borderRadius: AxButtonStyle.borderRadius,
+          borderSide: BorderSide(color: AxStyle.white.withValues(alpha: 0.3)),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: Colors.white, width: 1.5),
+          borderRadius: AxButtonStyle.borderRadius,
+          borderSide: BorderSide(color: AxStyle.white, width: 1.5),
         ),
       ),
     );
