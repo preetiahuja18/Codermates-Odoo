@@ -1,4 +1,4 @@
-import 'package:skill_swap/core/utils/extentions.dart';
+import 'package:skill_swap/core/utils/parser.dart';
 
 class AxSkillModel {
   late final String? id;
@@ -8,17 +8,19 @@ class AxSkillModel {
     dynamic id,
     dynamic name
   }) {
-    this.id = id.validString;
-    this.name = name.validString;
+    this.id = pasreString(id);
+    this.name = pasreString(name);
   }
 
-  AxSkillModel.fromMap({data}) {
+  factory AxSkillModel.fromMap({data}) {
     if(data is Map) {
-      AxSkillModel(
+      return AxSkillModel(
         id: data['id'],
-        name: data['name'],
+        name: data['title'],
       );
     }
+
+    return AxSkillModel();
   }
 
 

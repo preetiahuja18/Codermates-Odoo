@@ -1,12 +1,12 @@
 import 'package:skill_swap/core/model/skil.model.dart';
-import 'package:skill_swap/core/utils/extentions.dart';
+import 'package:skill_swap/core/utils/parser.dart';
 
 class AxUserModel {
   late final String? id;
   late final String? name;
   late final String? profilePicture;
-  late final List<AxSkillModel>? skillsOffered;
-  late final List<AxSkillModel>? skillsWanted;
+  late final List<AxSkillModel> skillsOffered;
+  late final List<AxSkillModel> skillsWanted;
   late final String? rating;
 
   AxUserModel({
@@ -17,21 +17,27 @@ class AxUserModel {
     dynamic skillsWanted,
     dynamic rating,
   }) {
-    this.id = id.validString;
-    this.name = name.validString;
-    this.profilePicture = profilePicture.validString;
+    this.id = pasreString(id);
+    this.name = pasreString(name);
+    this.profilePicture = pasreString(profilePicture);
     this.skillsOffered = AxSkillModel.getSkilList(data: skillsOffered);
     this.skillsWanted = AxSkillModel.getSkilList(data: skillsWanted);
-    this.rating = id.rating;
+    this.rating = pasreString(rating);
   }
 
-  AxUserModel.fromMap({data}) {
+  factory AxUserModel.fromMap({data}) {
     if(data is Map) {
-      AxUserModel(
+      return AxUserModel(
         id: data['id'],
         name: data['name'],
+        profilePicture: data['profile_picture'],
+        skillsOffered: data['skills_offered'],
+        skillsWanted: data['skills_wanted'],
+        rating: data['rating'],
       );
     }
+
+    return AxUserModel();
   }
 
 

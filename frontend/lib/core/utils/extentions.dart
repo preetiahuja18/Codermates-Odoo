@@ -10,21 +10,3 @@ extension ThemeContextExtension on BuildContext {
   bool get isTablet => ScreenType.tablet == getScreenType(context: this);
   bool get isDeskTop=> ScreenType.desktop == getScreenType(context: this);
 }
-
-
-extension ParseData on dynamic {
- 
-  String? get validString {
-    String? val;
-
-    if(this != null
-      && (this is String || this is int || this is double)
-    ) {
-      if(this.toString().trim().isNotEmpty) {
-        val = this.toString();
-      }
-    }
-
-    return val;
-  }
- }
