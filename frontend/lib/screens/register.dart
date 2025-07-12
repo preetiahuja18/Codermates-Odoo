@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import 'package:skill_swap/core/utils/extentions.dart';
+import 'package:skill_swap/core/utils/navigation.dart';
 import 'package:skill_swap/core/utils/style.dart';
 import 'package:skill_swap/core/widget/button/filled.widget.dart';
 import 'package:skill_swap/core/widget/components/input.dart';
@@ -34,10 +35,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final success = await auth.register(username, email, password);
 
     if (success) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const UserProfileScreen()),
-      );
+      naviagteTo(context: context, widget: const UserProfileScreen());
     } else {
       ScaffoldMessenger.of(
         context,

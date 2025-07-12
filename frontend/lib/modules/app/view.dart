@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skill_swap/modules/home/view.dart';
 import 'package:skill_swap/providers/auth_provider.dart';
+import 'package:skill_swap/screens/login_screen.dart';
 
 class SkilSwapApp extends StatelessWidget {
   const SkilSwapApp({super.key});
@@ -16,7 +17,7 @@ class SkilSwapApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
         ),
-        home: const Home(),
+        home: const LoginScreen(),
       ),
     );
   }

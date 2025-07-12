@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import 'package:skill_swap/core/utils/extentions.dart';
+import 'package:skill_swap/core/utils/navigation.dart';
 import 'package:skill_swap/core/utils/style.dart';
 import 'package:skill_swap/core/widget/button/filled.widget.dart';
 import 'package:skill_swap/core/widget/components/input.dart';
@@ -22,33 +23,25 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordCtrl = TextEditingController();
   final TextEditingController usernameCtrl = TextEditingController();
 
-
   bool isLoading = false;
 
- Future<void> handleSubmit() async {
-  setState(() => isLoading = true);
+  Future<void> handleSubmit() async {
+    setState(() => isLoading = true);
 
-  final email = emailCtrl.text.trim();
-  final password = passwordCtrl.text.trim();
+    final email = emailCtrl.text.trim();
+    final password = passwordCtrl.text.trim();
 
-  final auth = Provider.of<AuthProvider>(context, listen: false);
-  final success = await auth.login(email, password);
+    final auth = Provider.of<AuthProvider>(context, listen: false);
+    final success = await auth.login(email, password);
 
-  if (success) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const UserProfileScreen()),
-    );
-  } else {
-  
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const RegisterScreen()),
-    );
+    if (success) {
+      naviagteTo(context: context, widget: const UserProfileScreen());
+    } else {
+      naviagteTo(context: context, widget: const RegisterScreen());
+    }
+
+    setState(() => isLoading = false);
   }
-
-  setState(() => isLoading = false);
-}
 
   @override
   Widget build(BuildContext context) {
@@ -93,10 +86,21 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: const EdgeInsets.all(24),
                       width: context.isDeskTop ? 500 : double.infinity,
                       decoration: AxStyle.cardDecoration,
-    
+
                       child: Column(
                         children: [
-                         InputField(
+                          Text(
+                            "Welcome Back",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                              color: Colors.black,
+                              letterSpacing: 1.2,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+
+                          InputField(
                             controller: emailCtrl,
                             hintText: "Email",
                             icon: Icons.email_outlined,
@@ -110,9 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           const SizedBox(height: 24),
                           AxFilledButton(
-                            label: isLoading
-                                ? "Please wait..."
-                                : "Login",
+                            label: isLoading ? "Please wait..." : "Login",
                             onPressed: isLoading ? () {} : handleSubmit,
                           ).animate().fadeIn(delay: 600.ms).scale(),
                           const SizedBox(height: 12),
@@ -123,7 +125,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: AxStyle.secondaryTextStyle,
                             ),
                           ),
-                         
                         ],
                       ),
                     ),
