@@ -1,18 +1,35 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:skill_swap/core/model/user_login_model.dart';
 
 class AuthService {
-  final String baseUrl = "https://jsonplaceholder.typicode.com"; // Change later
+  final String baseUrl = "https://9b6ad324d0cb.ngrok-free.app/api/v1/auth/login";
 
-  Future<bool> login(String email, String password) async {
-    final response = await http.get(Uri.parse('$baseUrl/users?email=$email'));
-    if (response.statusCode == 200) {
-      final List users = jsonDecode(response.body);
-      return users.isNotEmpty;
+ Future<AxUserLoginModel?> login(String email, String password) async {
+  final url = Uri.parse(baseUrl);
+
+  final response = await http.post(
+    url,
+    headers: {"Content-Type": "application/json"},
+    body: jsonEncode({
+      "email": email,
+      "password": password,
+    }),
+  );
+
+  if (response.statusCode == 200) {
+    final json = jsonDecode(response.body);
+
+    if (json.containsKey("accessToken")) {
+      return AxUserLoginModel.fromJson(json);
     } else {
-      throw Exception("Login failed");
+      return null;
     }
+  } else {
+    return null;
   }
+}
+
 
   Future<bool> register(String username, String email, String password) async {
     final response = await http.post(

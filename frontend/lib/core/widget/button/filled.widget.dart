@@ -5,7 +5,7 @@ class AxFilledButton extends StatelessWidget {
   
   final String? label;
   final Widget? child;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   const AxFilledButton({
     super.key,
