@@ -15,8 +15,6 @@ class BodyLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
-
     return Scaffold(
       appBar: showAppBar
       ? AppBar(
@@ -30,5 +28,6 @@ class BodyLayout extends StatelessWidget {
       
       body: body,
     );
+    
   }
 }

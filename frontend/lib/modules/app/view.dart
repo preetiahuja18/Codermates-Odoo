@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:skill_swap/modules/home/view.dart';
 import 'package:skill_swap/providers/auth_provider.dart';
 import 'package:skill_swap/screens/login_screen.dart';
 
