@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:skill_swap/core/model/user.model.dart';
 import 'package:skill_swap/core/utils/style.dart';
 import 'package:skill_swap/core/widget/button/filled.widget.dart';
+import 'package:skill_swap/core/widget/components/input.dart';
+import 'package:skill_swap/core/widget/components/sectioncard.dart';
+import 'package:skill_swap/core/widget/components/skills_section.dart';
 import 'package:skill_swap/core/widget/layout/body.layout.dart';
 import 'package:skill_swap/modules/home/view.dart';
 
@@ -15,6 +18,25 @@ class RequestSwap extends StatefulWidget {
 }
 
 class _RequestSwapState extends State<RequestSwap> {
+  final offeredController = TextEditingController();
+  final wantedController = TextEditingController();
+  final message = TextEditingController();
+
+  final skillsOffered = <String>[];
+  final skillsWanted = <String>[];
+
+  void addSkill(List<String> list, TextEditingController controller) {
+    final text = controller.text.trim();
+    if (text.isNotEmpty && !list.contains(text)) {
+      setState(() => list.add(text));
+    }
+    controller.clear();
+  }
+
+  void removeSkill(List<String> list, int index) {
+    setState(() => list.removeAt(index));
+  }
+
   @override
   Widget build(BuildContext context) {
     final int? roundRating = double.tryParse(
@@ -31,47 +53,49 @@ class _RequestSwapState extends State<RequestSwap> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            CircleAvatar(
-              backgroundImage: Image.network(
-                "https://images.unsplash.com/photo-1654110455429-cf322b40a906?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHByb2ZpbGUlMjBwaWN0dXJlfGVufDB8fDB8fHww",
-              ).image,
-              radius: 90,
-            ),
-            if (widget.userModel.rating != null)
-              Padding(
-                padding: const EdgeInsets.only(top: 5.0),
-                child: Text(
-                  widget.userModel.rating!,
-                  style: AxStyle.secondaryTextStyle.copyWith(
-                    fontWeight: FontWeight.bold,
+            buildCard(
+              title: "Skills",
+              icon: Icons.build_outlined,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildSkillInput(
+                    "Add Skill Offered",
+                    offeredController,
+                    () => addSkill(skillsOffered, offeredController),
                   ),
-                ),
+                  const SizedBox(height: 8),
+                  if (skillsOffered.isNotEmpty)
+                    buildSkillChips(
+                      skillsOffered,
+                      (i) => removeSkill(skillsOffered, i),
+                    ),
+                  const SizedBox(height: 16),
+                  buildSkillInput(
+                    "Add Skill Wanted",
+                    wantedController,
+                    () => addSkill(skillsWanted, wantedController),
+                  ),
+                  const SizedBox(height: 8),
+                  if (skillsWanted.isNotEmpty)
+                    buildSkillChips(
+                      skillsWanted,
+                      (i) => removeSkill(skillsWanted, i),
+                    ),
+                ],
               ),
-            if (ratingStar.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 5.0),
-                child: Text(ratingStar),
-              ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Text(
-                widget.userModel.name!,
-                style: AxStyle.secondaryTextStyle.copyWith(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16.0,
-                ),
-              ),
+              context: context,
             ),
-            skillWidget(
-              title: "Skils Offerd",
-              skills: widget.userModel.skillsOffered,
-            ),
-            const SizedBox(height: 12.0),
-            skillWidget(
-              title: "Skils Want",
-              skills: widget.userModel.skillsOffered,
+            buildCard(
+              context: context,
+              title: "Meaage",
+              icon: Icons.message,
+              child: InputField(
+                controller: message,
+                hintText: "Meaage",
+                maxLine: 5,
+              ),
             ),
           ],
         ),

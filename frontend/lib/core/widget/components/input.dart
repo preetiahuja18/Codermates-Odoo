@@ -6,6 +6,7 @@ class InputField extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final IconData? icon;
+  final int maxLine;
 
   const InputField({
     super.key,
@@ -13,6 +14,7 @@ class InputField extends StatelessWidget {
     required this.hintText,
     this.obscureText = false,
     this.icon,
+    this.maxLine =1
   });
 
   @override
@@ -22,6 +24,7 @@ class InputField extends StatelessWidget {
       obscureText: obscureText,
       style: AxStyle.secondaryTextStyle,
       cursorColor: Colors.white,
+      maxLines: maxLine,
       decoration: InputDecoration(
         prefixIcon: icon != null
             ? Icon(icon, color: AxStyle.secondaryTextColor.withValues(alpha: 0.7))
@@ -33,7 +36,7 @@ class InputField extends StatelessWidget {
         contentPadding: AxButtonStyle.innerPadding,
         enabledBorder: AxButtonStyle.enableInputBorder,
         focusedBorder: AxButtonStyle.focusedInputBorder,
-      
+    
     
       ),
     );

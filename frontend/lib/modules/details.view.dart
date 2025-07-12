@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:skill_swap/core/model/user.model.dart';
+import 'package:skill_swap/core/utils/navigation.dart';
 import 'package:skill_swap/core/utils/style.dart';
 import 'package:skill_swap/core/widget/button/filled.widget.dart';
 import 'package:skill_swap/core/widget/layout/body.layout.dart';
 import 'package:skill_swap/modules/home/view.dart';
+import 'package:skill_swap/modules/request/view.dart';
 
 class UserDetails extends StatefulWidget {
   final AxUserModel userModel;
@@ -82,7 +84,15 @@ class _UserDetailsState extends State<UserDetails> {
           ],
         ),
       ),
-      bottomWidget: AxFilledButton(label: "Request", onPressed: () {}),
+      bottomWidget: AxFilledButton(
+        label: "Request",
+        onPressed: () {
+          naviagteTo(
+            context: context,
+            widget: RequestSwap(userModel: widget.userModel),
+          );
+        },
+      ),
     );
   }
 }
