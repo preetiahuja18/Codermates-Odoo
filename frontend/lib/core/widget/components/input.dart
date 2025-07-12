@@ -20,8 +20,9 @@ class InputField extends StatelessWidget {
     return TextField(
       controller: controller,
       obscureText: obscureText,
-      style: AxStyle.primaryTextStyle.copyWith(color: AxStyle.white),
-      cursorColor: AxStyle.white,
+    
+      style: const TextStyle(color: Colors.white),
+      cursorColor: Colors.white,
       decoration: InputDecoration(
         prefixIcon: icon != null
             ? Icon(icon, color: AxStyle.white.withValues(alpha: 0.7))

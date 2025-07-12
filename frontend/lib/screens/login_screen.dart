@@ -36,18 +36,24 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!isRegisterMode) {
       final success = await auth.login(email, password);
       if (success) {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const HomeScreen()),
+        );
       } else {
         setState(() => isRegisterMode = true); // fallback to registrationz
       }
     } else {
       final registered = await auth.register(username, email, password);
       if (registered) {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Registration Failed")),
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const HomeScreen()),
         );
+      } else {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text("Registration Failed")));
       }
     }
 
@@ -56,8 +62,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BodyLayout(
-      showAppBar: false,
+    return Scaffold(
+      extendBodyBehindAppBar: true,
       body: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
@@ -86,79 +92,86 @@ class _LoginScreenState extends State<LoginScreen> {
                       letterSpacing: 1.2,
                     ),
                   ),
+
                   const SizedBox(height: 40),
-                  Container(
-                    padding: const EdgeInsets.all(24),
-                    width: context.isDeskTop ? 500 : double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Colors.white.withOpacity(0.3)),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 20,
-                          offset: Offset(0, 8),
+                  Animate(
+                    effects: const [
+                      FadeEffect(delay: Duration(milliseconds: 300)),
+                      SlideEffect(),
+                    ],
+                    child: Container(
+                      padding: const EdgeInsets.all(24),
+                      width: context.isDeskTop ? 500 : double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.3),
                         ),
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        if (isRegisterMode)
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 30,
+                            offset: const Offset(0, 6),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        children: [
+                          if (isRegisterMode)
+                            InputField(
+                              controller: usernameCtrl,
+                              hintText: "Username",
+                              icon: Icons.person_outline,
+                            ),
+                          const SizedBox(height: 16),
                           InputField(
-                            controller: usernameCtrl,
-                            hintText: "Username",
-                            icon: Icons.person_outline,
+                            controller: emailCtrl,
+                            hintText: "Email",
+                            icon: Icons.email_outlined,
                           ),
-                        const SizedBox(height: 16),
-                        InputField(
-                          controller: emailCtrl,
-                          hintText: "Email",
-                          icon: Icons.email_outlined,
-                        ),
-                        const SizedBox(height: 16),
-                        InputField(
-                          controller: passwordCtrl,
-                          hintText: "Password",
-                          icon: Icons.lock_outline,
-                          obscureText: true,
-                        ),
-                        const SizedBox(height: 24),
-                        AxFilledButton(
-                          label: isLoading
-                              ? "Please wait..."
-                              : isRegisterMode
-                                  ? "Register"
-                                  : "Login",
-                          onPressed: isLoading ? () {} : handleSubmit,
-                        ).animate().fadeIn(delay: 500.ms).scale(),
-                        const SizedBox(height: 12),
-                        TextButton(
-                          onPressed: () {
-                       
-                          },
-                          child: const Text(
-                            "Forgot your password?",
-                            style: TextStyle(color: Colors.white),
+                          const SizedBox(height: 16),
+                          InputField(
+                            controller: passwordCtrl,
+                            hintText: "Password",
+                            icon: Icons.lock_outline,
+                            obscureText: true,
                           ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            setState(() {
-                              isRegisterMode = !isRegisterMode;
-                            });
-                          },
-                          child: Text(
-                            isRegisterMode
-                                ? "Back to Login"
-                                : "Don’t have an account? Register",
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                          const SizedBox(height: 24),
+                          AxFilledButton(
+                            label: isLoading
+                                ? "Please wait..."
+                                : isRegisterMode
+                                ? "Register"
+                                : "Login",
+                            onPressed: isLoading ? () {} : handleSubmit,
+                          ).animate().fadeIn(delay: 600.ms).scale(),
+                          const SizedBox(height: 12),
+                          TextButton(
+                            onPressed: () {},
+                            child: const Text(
+                              "Forgot your password?",
+                              style: TextStyle(color: Colors.white),
                             ),
                           ),
-                        ),
-                      ],
+                          TextButton(
+                            onPressed: () {
+                              setState(() {
+                                isRegisterMode = !isRegisterMode;
+                              });
+                            },
+                            child: Text(
+                              isRegisterMode
+                                  ? "Back to Login"
+                                  : "Don’t have an account? Register",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
