@@ -1,15 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skill_swap/core/model/skil.model.dart';
 import 'package:skill_swap/core/model/user.model.dart';
 import 'package:skill_swap/core/utils/extentions.dart';
+import 'package:skill_swap/core/utils/navigation.dart';
 import 'package:skill_swap/core/utils/style.dart';
 import 'package:skill_swap/core/widget/button/filled.widget.dart';
 import 'package:skill_swap/core/widget/button/outlined.widget.dart';
 import 'package:skill_swap/core/widget/button/pagination.widget.dart';
 import 'package:skill_swap/core/widget/components/input.dart';
 import 'package:skill_swap/core/widget/layout/body.layout.dart';
+import 'package:skill_swap/modules/details.view.dart';
 import 'package:skill_swap/modules/home/provider.dart';
+import 'package:skill_swap/modules/request/view.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -196,7 +200,9 @@ class _HomeState extends State<Home> {
                   padding: const EdgeInsets.only(top: 16.0),
                   child: AxFilledButton(
                     label: "Request",
-                    onPressed: () {}
+                    onPressed: () {
+                      naviagteTo(context: context, widget: UserDetails(userModel: user));
+                    }
                   ),
                 )
               ],

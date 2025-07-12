@@ -4,12 +4,14 @@ import 'package:skill_swap/core/utils/style.dart';
 class BodyLayout extends StatelessWidget {
   
   final Widget body;
+  final Widget? bottomWidget;
   final bool showAppBar;
 
    const BodyLayout({
     super.key,
     required this.body,
     this.showAppBar = true,
+    this.bottomWidget
   });
 
   @override
@@ -18,6 +20,7 @@ class BodyLayout extends StatelessWidget {
     return Scaffold(
       appBar: showAppBar
       ? AppBar(
+        foregroundColor: AxStyle.primaryTextColor,
           backgroundColor: AxStyle.primaryBgColor,
           title: Text(
             "Skill Swap",
@@ -25,7 +28,17 @@ class BodyLayout extends StatelessWidget {
           ),
         )
       : null,
-      
+      bottomNavigationBar: bottomWidget != null 
+        ? Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              bottomWidget!,
+            ],
+          ),
+        )
+        : null,
       body: body,
     );
     

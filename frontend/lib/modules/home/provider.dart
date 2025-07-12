@@ -34,6 +34,8 @@ class HomeProvider extends ChangeNotifier {
 }
 
 final Map apiRespose = {
+  'total_page': 5,
+  'current_page' : 2,
   'users' : [
     {
       'id' : "1",
