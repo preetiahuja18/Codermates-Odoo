@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skill_swap/core/model/skil.model.dart';
@@ -13,7 +12,6 @@ import 'package:skill_swap/core/widget/components/input.dart';
 import 'package:skill_swap/core/widget/layout/body.layout.dart';
 import 'package:skill_swap/modules/details.view.dart';
 import 'package:skill_swap/modules/home/provider.dart';
-import 'package:skill_swap/modules/request/view.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

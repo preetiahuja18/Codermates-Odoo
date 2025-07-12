@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:skill_swap/core/model/user.model.dart';
-import 'package:skill_swap/core/utils/navigation.dart';
 import 'package:skill_swap/core/widget/button/filled.widget.dart';
 import 'package:skill_swap/core/widget/layout/body.layout.dart';
 
