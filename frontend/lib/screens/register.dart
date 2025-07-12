@@ -5,53 +5,47 @@ import 'package:skill_swap/core/utils/extentions.dart';
 import 'package:skill_swap/core/utils/style.dart';
 import 'package:skill_swap/core/widget/button/filled.widget.dart';
 import 'package:skill_swap/core/widget/components/input.dart';
-import 'package:skill_swap/modules/home/view.dart';
-import 'package:skill_swap/screens/register.dart';
+import 'package:skill_swap/providers/auth_provider.dart';
+import 'package:skill_swap/screens/login_screen.dart';
 import 'package:skill_swap/screens/user_profile.dart';
 
-import '../providers/auth_provider.dart';
-
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController emailCtrl = TextEditingController();
   final TextEditingController passwordCtrl = TextEditingController();
   final TextEditingController usernameCtrl = TextEditingController();
 
-
   bool isLoading = false;
 
- Future<void> handleSubmit() async {
-  setState(() => isLoading = true);
+  Future<void> handleRegister() async {
+    setState(() => isLoading = true);
 
-  final email = emailCtrl.text.trim();
-  final password = passwordCtrl.text.trim();
-  print("Submit:$email & Password : $password");
+    final email = emailCtrl.text.trim();
+    final password = passwordCtrl.text.trim();
+    final username = usernameCtrl.text.trim();
 
-  final auth = Provider.of<AuthProvider>(context, listen: false);
-  final success = await auth.login(email, password);
-  print("Login success: $success");
+    final auth = Provider.of<AuthProvider>(context, listen: false);
+    final success = await auth.register(username, email, password);
 
-  if (success) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const UserProfileScreen()),
-    );
-  } else {
-  
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const RegisterScreen()),
-    );
+    if (success) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const UserProfileScreen()),
+      );
+    } else {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Registration Failed")));
+    }
+
+    setState(() => isLoading = false);
   }
-
-  setState(() => isLoading = false);
-}
 
   @override
   Widget build(BuildContext context) {
@@ -79,13 +73,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Text(
                     "SkillSwap",
                     style: TextStyle(
-                      fontSize: 38,
+                      fontSize: 34,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
-                      letterSpacing: 1.2,
+                      letterSpacing: 1.1,
                     ),
                   ),
-
                   const SizedBox(height: 40),
                   Animate(
                     effects: const [
@@ -96,10 +89,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: const EdgeInsets.all(24),
                       width: context.isDeskTop ? 500 : double.infinity,
                       decoration: AxStyle.cardDecoration,
-    
                       child: Column(
                         children: [
-                         InputField(
+                          InputField(
+                            controller: usernameCtrl,
+                            hintText: "Username",
+                            icon: Icons.person_outline,
+                          ),
+                          const SizedBox(height: 16),
+                          InputField(
                             controller: emailCtrl,
                             hintText: "Email",
                             icon: Icons.email_outlined,
@@ -113,20 +111,24 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           const SizedBox(height: 24),
                           AxFilledButton(
-                            label: isLoading
-                                ? "Please wait..."
-                                : "Login",
-                            onPressed: isLoading ? () {} : handleSubmit,
+                            label: isLoading ? "Please wait..." : "Register",
+                            onPressed: isLoading ? () {} : handleRegister,
                           ).animate().fadeIn(delay: 600.ms).scale(),
                           const SizedBox(height: 12),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const LoginScreen(),
+                                ),
+                              );
+                            },
                             child: const Text(
-                              "Forgot your password?",
+                              "Already have an account? Login",
                               style: AxStyle.secondaryTextStyle,
                             ),
                           ),
-                         
                         ],
                       ),
                     ),
